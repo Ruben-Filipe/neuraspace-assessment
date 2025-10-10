@@ -1,34 +1,15 @@
 import test, { expect } from "@playwright/test";
 import dayjs from 'dayjs';
-
-interface SpaceObject {
-    OBJECT_NAME: string,
-    OBJECT_ID: string,
-    EPOCH: string,
-    MEAN_MOTION: number,
-    ECCENTRICITY: number,
-    INCLINATION: number,
-    RA_OF_ASC_NODE: number,
-    ARG_OF_PERICENTER: number
-    MEAN_ANOMALY: number,
-    EPHEMERIS_TYPE: number,
-    CLASSIFICATION_TYPE: string,
-    NORAD_CAT_ID: number,
-    ELEMENT_SET_NO: number,
-    REV_AT_EPOCH: number,
-    BSTAR: number,
-    MEAN_MOTION_DOT: number,
-    MEAN_MOTION_DDOT: number
-};
-
-let spaceObjects: SpaceObject[] = [];
+import { CelestrakApi, CelestrakSpaceObject } from "../api/CelestrakApi";
 
 test.describe('Celestrak space-objects API validation', () => {
+    let spaceObjects: CelestrakSpaceObject[] = [];
+    
     test.beforeAll('Fetch space objects from last 30 days', async ({ request }) => {
-        const url = 'https://celestrak.org/NORAD/elements/gp.php?GROUP=last-30-days&FORMAT=json';
+        const celestrakApi = new CelestrakApi(request);
 
         try {
-            const response = await request.fetch(url);
+            const response = await celestrakApi.getSpaceObjects();
 
             if (!response.ok()) {
                 throw new Error(`Request was not successfull`);
@@ -47,7 +28,6 @@ test.describe('Celestrak space-objects API validation', () => {
             throw new Error(`Unable to fetch data from celestrak endpoint: ${error}`);
         }
     });
-
 
     test('Each space object has a valid EPOCH within last 30 days', () => {
         for (const spaceObject of spaceObjects) {
