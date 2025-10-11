@@ -14,7 +14,7 @@ Below are the deliverables for each exercise in the QA challenge:
 |----------|------|
 | 1        | [`exercise-1.md`](./exercise-1.md) |
 | 2        | [`src/tests/exercise-2.spec.ts`](./src/tests/exercise-2.spec.ts) |
-| 3        | [`src/tests/exercise-2.spec.ts`](./src/tests/exercise-2.spec.ts) |
+| 3        | [`src/tests/exercise-3.spec.ts`](./src/tests/exercise-3.spec.ts) |
 
 ### Prerequisites
 
