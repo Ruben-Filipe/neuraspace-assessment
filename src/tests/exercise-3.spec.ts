@@ -1,20 +1,22 @@
 import test, { expect } from "@playwright/test";
 import { SpaceObject, SpaceObjectApi } from "../api/SpaceObjectApi";
 
-const payload: SpaceObject = {
-    name: "Test Satellite",
-    objectType: "Payload",
-    launchCountry: "USA",
-    launchDate: "2023-12-08T04:06:32.929Z",
-    launchSite: "Cape Canaveral",
-    decay: "2023-12-08T04:06:32.929Z",
-    period: 90,
-    inclination: 51.6,
-    apogee: 400,
-    perigee: 350,
-    launchMass: 2000,
-    dryMass: 1200
-};
+const payload: SpaceObject =  {
+    cosparId: "0854-HDOH",
+    noradId: "68956",
+    name: "Koepp",
+    objectType: "Debris",
+    launchCountry: "Saint Martin",
+    launchDate: "1968-06-10T19:37:52.6546971",
+    launchSite: "Florianfurt",
+    decay: "1957-11-25T14:08:34.4295382",
+    period: 69,
+    inclination: 352,
+    apogee: 792004,
+    perigee: 575014,
+    launchMass: 220878,
+    dryMass: 10
+  };
 
 test.describe('Neuraspace - SpaceObjectApi validations', () => {
     let spaceObjectApi: SpaceObjectApi;
