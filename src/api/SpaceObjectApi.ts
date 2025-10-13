@@ -23,11 +23,10 @@ export class SpaceObjectApi {
 
     constructor(request: APIRequestContext) {
         this.request = request;
-        this.baseUrl = 'https://neuraspacedummyrsoapiappservicelinux-hyayfbdrg3gea6fd.westeurope-01.azurewebsites.net';
+        this.baseUrl = 'https://neuraspacedummyrsoapiappservicelinux-hyayfbdrg3gea6fd.westeurope-01.azurewebsites.net/space_objects';
     }
 
     async createSpaceObject(data: SpaceObject) {
-        const url = `${this.baseUrl}/space_objects`;
-        return await this.request.post(url, { data });
+        return await this.request.post(this.baseUrl, { data });
     }
 }
