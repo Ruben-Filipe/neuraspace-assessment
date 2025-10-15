@@ -1,8 +1,8 @@
 import { APIRequestContext } from "@playwright/test";
 
 export interface SpaceObject {
-    cosparId?: string,
-    noradId?: string,
+    cosparId: string,
+    noradId: string,
     name?: string,
     objectType?: string,
     launchCountry?: string,
@@ -28,5 +28,13 @@ export class SpaceObjectApi {
 
     async createSpaceObject(data: SpaceObject) {
         return await this.request.post(this.baseUrl, { data });
+    }
+
+    async getSpaceObject(cosparId: string) {
+        return await this.request.get(`${this.baseUrl}/cosparId?cosparId=${cosparId}`);
+    }
+
+    async deleteSpaceObject(id: string) {
+        return await this.request.delete(`${this.baseUrl}/id?id=${id}`);
     }
 }
