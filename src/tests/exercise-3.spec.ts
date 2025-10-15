@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { SpaceObject, SpaceObjectApi } from "../api/SpaceObjectApi";
 
 const payload: SpaceObject =  {
-    cosparId: "0854-HDOH",
+    cosparId: "8410-TVN1",
     noradId: "68956",
     name: "Koepp",
     objectType: "Debris",
@@ -69,4 +69,19 @@ test.describe('Neuraspace - SpaceObjectApi validations', () => {
             expect(await response.text()).toBe('Must be positive');
         });
     }
+
+    test.afterEach('Try to delete created space object', async () => {
+        try {
+            const response = await spaceObjectApi.getSpaceObject(payload.cosparId);
+            
+            if (response.headers()['content-length'] === '0')
+                return;
+            
+            const spaceObject = await response.json();
+
+            await spaceObjectApi.deleteSpaceObject(spaceObject.id);
+        } catch (error) {
+            console.log('Warning: Clean up error, unable to delete space object');
+        }   
+    });
 });
