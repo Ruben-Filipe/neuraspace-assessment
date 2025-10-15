@@ -12,7 +12,7 @@ test.describe('Celestrak space-objects API validation', () => {
             const response = await celestrakApi.getSpaceObjects();
 
             if (!response.ok()) {
-                throw new Error(`Request was not successfull`);
+                throw new Error(`Request was not successful`);
             }
 
             if (response.status() === 204) {
