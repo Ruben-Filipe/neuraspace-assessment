@@ -29,7 +29,7 @@ Clone the repository and install the dependencies:
 
 ```
 npm ci
-npx playwright install --with-deps
+npx playwright install chromium
 ```
 
 ### Running Tests
