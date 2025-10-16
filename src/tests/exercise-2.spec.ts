@@ -61,7 +61,7 @@ test.describe('Celestrak space-objects API validation', () => {
 
             const launchYear = launch.year();
 
-            const objRegex = new RegExp(`^${launchYear}-\d{3}[A-Z]{1,3}$`);
+            const objRegex = new RegExp(`^${launchYear}-\\d{3}[A-Z]{1,3}$`);
             expect(spaceObject.OBJECT_ID).toMatch(objRegex);
         };
     });
