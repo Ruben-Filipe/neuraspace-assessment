@@ -2,8 +2,8 @@ import test, { expect } from "@playwright/test";
 import { SpaceObject, SpaceObjectApi } from "../api/SpaceObjectApi";
 
 const payload: SpaceObject =  {
-    cosparId: "8410-TVN1",
-    noradId: "68956",
+    cosparId: "3110-TVN1",
+    noradId: "58956",
     name: "Koepp",
     objectType: "Debris",
     launchCountry: "Saint Martin",
@@ -29,7 +29,7 @@ test.describe('Neuraspace - SpaceObjectApi validations', () => {
         const response = await spaceObjectApi.createSpaceObject(payload);
 
         expect(response.status()).toBe(200);
-        expect(await response.text()).toBe('');
+        expect(await response.text()).toMatch(/^"[a-z0-9]+(-[a-z0-9]+)+"$/);
     });
 
     test('Should reject invalid cosparId format', async () => {
@@ -67,6 +67,27 @@ test.describe('Neuraspace - SpaceObjectApi validations', () => {
             
             expect(response.status()).toBe(400);
             expect(await response.text()).toBe('Must be positive');
+        });
+    }
+
+    test('Should reject invalid objectType', async () => {
+        const invalidPayload = { ...payload, objectType: 'Satellite' };
+        const response = await spaceObjectApi.createSpaceObject(invalidPayload);
+
+        expect(response.status()).toBe(400);
+        expect(await response.text()).toBe('Invalid objectType');
+    });
+
+    const types = ['RocketBody', 'Payload', 'Debris'];
+
+    for (const objectType of types) {
+        test(`Should accept valid objectType: ${objectType}`, async () => {
+            const validPayload = { ...payload, objectType };
+
+            const response = await spaceObjectApi.createSpaceObject(validPayload);
+
+            expect(response.status()).toBe(200);
+            expect(await response.text()).toMatch(/^"[a-z0-9]+(-[a-z0-9]+)+"$/);
         });
     }
 
