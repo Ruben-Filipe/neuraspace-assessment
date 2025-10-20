@@ -2,8 +2,8 @@ import test, { expect } from "@playwright/test";
 import { SpaceObject, SpaceObjectApi } from "../api/SpaceObjectApi";
 
 const payload: SpaceObject =  {
-    cosparId: "3110-TVN1",
-    noradId: "58956",
+    cosparId: "3220-TVN1",
+    noradId: "51136",
     name: "Koepp",
     objectType: "Debris",
     launchCountry: "Saint Martin",
@@ -100,7 +100,7 @@ test.describe('Neuraspace - SpaceObjectApi validations', () => {
             
             const spaceObject = await response.json();
 
-            await spaceObjectApi.deleteSpaceObject(spaceObject.id);
+            await spaceObjectApi.deleteSpaceObject(spaceObject.internalId);
         } catch (error) {
             console.log('Warning: Clean up error, unable to delete space object');
         }   
